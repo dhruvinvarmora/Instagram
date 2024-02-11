@@ -1,0 +1,570 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content%}
+
+        <!-- main contents -->
+        <main class="2xl:ml-[--w-side] xl:ml-[--w-side-md] md:ml-[--w-side-small]">
+
+            <div class="main__inner pt-6">
+                 
+                <!-- heading title -->
+                <div class="page__heading">
+                    <a href="#">
+                        <ion-icon name="chevron-back-outline"></ion-icon> Back
+                    </a>
+                    <h1> Reels</h1>
+                </div>
+
+                <!-- category list -->
+                <div class="relative" tabindex="-1" uk-slider="finite: true">
+
+                    <div class="py-4 overflow-hidden uk-slider-container">
+
+                        <ul class="-ml-2 uk-slider-items w-[calc(100%+0.10px)] capitalize text-sm font-semibold">
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> Top </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> headphones </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> Parfums </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> Fruits </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> Gaming </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> Mobiles </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> Laptops </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> Gaming </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> headphones </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> Parfums </a> </li>
+                            <li class="w-auto pr-2.5"> <a href="#" class="px-4 py-2 rounded-lg bg-white border inline-block hover:shadow dark:bg-dark2 dark:border-slate-700"> Fruits </a> </li>
+                        </ul>
+                    
+                    </div>
+                            
+                    <a class="absolute left-0 -translate-y-1/2 top-1/2 flex items-center w-16 h-12 p-2.5 justify-start bg-gradient-to-r from-[#f6f9fb] via-[#f6f9fb] dark:from-slate-900 dark:via-slate-900" href="#" uk-slider-item="previous"> <ion-icon name="chevron-back" class="text-2xl"></ion-icon> </a>
+                    <a class="absolute right-0 -translate-y-1/2 top-1/2 flex items-center w-16 h-12 p-2.5 justify-end bg-gradient-to-l from-[#f6f9fb] via-[#f6f9fb] dark:from-slate-900 dark:via-slate-900" href="#" uk-slider-item="next">  <ion-icon name="chevron-forward" class="text-2xl"></ion-icon> </a>
+
+                </div>
+
+                <div>
+
+                    <div class="relative" tabindex="-1" uk-slider="autoplay: true;finite: true">
+ 
+                        <div class="overflow-hidden uk-slider-container p y-4">
+                        
+                            <ul class="-ml-2 uk-slider-items w-[calc(100%+0.875rem)]" uk-scrollspy="target: > li; cls: uk-animation-slide-right-small; delay: 50">
+                                <li class="lg:w-1/4 md:w-1/2 w-1/2 pr-3.5" uk-scrollspy-class="uk-animation-fade">
+                                    
+                                    <!-- single reels -->
+                                    <a href="reels-view.html">
+                                        <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                            
+                                            <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-1.jpg"%}" alt="">
+                                            
+                                            <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                            <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                                <div class="flex items-center gap-2">
+                                                    <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                                    <div class="text-sm"> Alexa </div>
+                                                </div>
+                                                <div class="flex items-center gap-2 text-xs">
+                                                    <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                                    640
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <div class="font-normal pt-3 pb-2.5"> 
+                                            <div class="line-clamp-2 text-sm"> #The Top 8 Online Learning Platforms You Should Try </div>
+                                        </div>
+                                    </a>
+
+                                </li> 
+                                <li class="lg:w-1/4 md:w-1/2 w-1/2 pr-3.5">
+                                    
+                                    <!-- single reels -->
+                                    <a href="reels-view.html">
+                                        <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                            
+                                            <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-2.jpg"%}" alt="">
+                                            
+                                            <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                            <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                                <div class="flex items-center gap-2">
+                                                    <img src="{% static "assets/images/avatars/avatar-3.jpg"%}" alt="" class="w-5 rounded-full">
+                                                    <div class="text-sm"> Martin </div>
+                                                </div>
+                                                <div class="flex items-center gap-2 text-xs">
+                                                    <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                                   580
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <div class="font-normal pt-3 pb-2.5"> 
+                                            <div class="line-clamp-2 text-sm"> #The Top 10 Online Shopping Sites You Should Know About </div>
+                                        </div>
+                                    </a>
+
+                                </li>
+                                <li class="lg:w-1/4 md:w-1/2 w-1/2 pr-3.5">
+                                    
+                                    <!-- single reels -->
+                                    <a href="reels-view.html">
+                                        <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                            
+                                            <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-3.jpg"%}" alt="">
+                                            
+                                            <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                            <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                                <div class="flex items-center gap-2">
+                                                    <img src="{% static "assets/images/avatars/avatar-4.jpg"%}" alt="" class="w-5 rounded-full">
+                                                    <div class="text-sm"> Parker </div>
+                                                </div>
+                                                <div class="flex items-center gap-2 text-xs">
+                                                    <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                                    460
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <div class="font-normal pt-3 pb-2.5"> 
+                                            <div class="line-clamp-2 text-sm"> #Health Benefits of Drinking Enough Water Every Day </div>
+                                        </div>
+                                    </a>
+
+                                </li> 
+                                <li class="lg:w-1/4 md:w-1/2 w-1/2 pr-3.5">
+                                    
+                                    <!-- single reels -->
+                                    <a href="reels-view.html">
+                                        <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                            
+                                            <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-4.jpg"%}" alt="">
+                                            
+                                            <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                            <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                                <div class="flex items-center gap-2">
+                                                    <img src="{% static "assets/images/avatars/avatar-5.jpg"%}" alt="" class="w-5 rounded-full">
+                                                    <div class="text-sm"> Michael </div>
+                                                </div>
+                                                <div class="flex items-center gap-2 text-xs">
+                                                    <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                                    320
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <div class="font-normal pt-3 pb-2.5"> 
+                                            <div class="line-clamp-2 text-sm"> #How to Choose the Best Drone for Your Photography Needs </div>
+                                        </div>
+                                    </a>
+
+                                </li>
+                                <li class="lg:w-1/4 md:w-1/2 w-1/2 pr-3.5" uk-scrollspy-class="uk-animation-fade">
+                                    
+                                    <!-- single reels -->
+                                    <a href="reels-view.html">
+                                        <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                            
+                                            <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-1.jpg"%}" alt="">
+                                            
+                                            <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                            <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                                <div class="flex items-center gap-2">
+                                                    <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                                    <div class="text-sm"> Alexa </div>
+                                                </div>
+                                                <div class="flex items-center gap-2 text-xs">
+                                                    <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                                    640
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <div class="font-normal pt-3 pb-2.5"> 
+                                            <div class="line-clamp-2 text-sm"> #The Top 8 Online Learning Platforms You Should Try </div>
+                                        </div>
+                                    </a>
+
+                                </li> 
+                                <li class="lg:w-1/4 md:w-1/2 w-1/2 pr-3.5">
+                                    
+                                    <!-- single reels -->
+                                    <a href="reels-view.html">
+                                        <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                            
+                                            <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-2.jpg"%}" alt="">
+                                            
+                                            <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                            <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                                <div class="flex items-center gap-2">
+                                                    <img src="{% static "assets/images/avatars/avatar-3.jpg"%}" alt="" class="w-5 rounded-full">
+                                                    <div class="text-sm"> Martin </div>
+                                                </div>
+                                                <div class="flex items-center gap-2 text-xs">
+                                                    <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                                   580
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <div class="font-normal pt-3 pb-2.5"> 
+                                            <div class="line-clamp-2 text-sm"> #The Top 10 Online Shopping Sites You Should Know About </div>
+                                        </div>
+                                    </a>
+
+                                </li>
+                                <li class="lg:w-1/4 md:w-1/2 w-1/2 pr-3.5">
+                                    <div class="w-full lg:h-[270px] aspect-[2.5/4] bg-slate-200/60 rounded-lg animate-pulse"></div>
+                                    <div class="mt-4 space-y-1.5">
+                                        <div class="w-40 h-4 rounded-md bg-slate-300/20"></div>
+                                        <div class="w-24 h-3 rounded-md bg-slate-300/20"></div>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                    
+                        </div>
+                    
+                        <button type="button" class="absolute -translate-y-1/2 bg-white rounded-full bottom-1/2 -left-4 grid w-9 h-9 place-items-center shadow  dark:bg-dark3" uk-slider-item="previous"> <ion-icon name="chevron-back" class="text-2xl"></ion-icon></button>
+                        <button type="button" class="absolute -right-4 -translate-y-1/2 bg-white rounded-full bottom-1/2 grid w-9 h-9 place-items-center shadow  dark:bg-dark3" uk-slider-item="next"> <ion-icon name="chevron-forward" class="text-2xl"></ion-icon></button>
+                        
+                    </div>
+
+                </div>
+
+                <div class="mt-8">
+
+                     <!-- post heading -->
+                     <div class="flex items-center justify-between py-3">
+                        <h1 class="text-xl font-bold text-black dark:text-white">You may like</h1>
+
+                        <a href="#" class="text-sm font-semibold flex items-center gap-2">
+                            Show acheived  <ion-icon name="chevron-forward-outline"></ion-icon> 
+                        </a>
+                    </div>
+                    
+                    <div    class="grid gap-3 lg:gap-4 lg:grid-cols-4 md:grid-cols-5 sm:grid-cols-3 grid-cols-2"  
+                            uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 100;repeat:true">
+    
+
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-4.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-8 p-3 flex justify-between text-white uk-transition-slide-bottom">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Alexa </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        162
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #The Top 8 Online Learning Platforms You Should Try </div>
+                            </div>
+                        </a>
+
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-3.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-8 p-3 flex justify-between text-white uk-transition-slide-bottom">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Alexa </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        162
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #Health Benefits of Drinking Enough Water Every Day  </div>
+                            </div>
+                        </a>
+
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-1.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-8 p-3 flex justify-between text-white uk-transition-slide-bottom">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Alexa </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        162
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #The Top 8 Online Learning Platforms You Should Try  </div>
+                            </div>
+                        </a>
+                    
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-2.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-8 p-3 flex justify-between text-white uk-transition-slide-bottom">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Alexa </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        162
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #The Top 10 Online Shopping Sites You Should Know About </div>
+                            </div>
+                        </a>
+                     
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-1.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Alexa </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        640
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #The Top 8 Online Learning Platforms You Should Try </div>
+                            </div>
+                        </a>
+
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-2.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-3.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Martin </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                       580
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #The Top 10 Online Shopping Sites You Should Know About </div>
+                            </div>
+                        </a>
+
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-3.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-4.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Parker </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        460
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #Health Benefits of Drinking Enough Water Every Day </div>
+                            </div>
+                        </a>
+
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-4.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-20 p-3 flex justify-between text-white">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-5.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Michael </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        320
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #How to Choose the Best Drone for Your Photography Needs </div>
+                            </div>
+                        </a>
+ 
+                           
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-4.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-8 p-3 flex justify-between text-white uk-transition-slide-bottom">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Alexa </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        162
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #The Top 8 Online Learning Platforms You Should Try </div>
+                            </div>
+                        </a>
+
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-3.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-8 p-3 flex justify-between text-white uk-transition-slide-bottom">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Alexa </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        162
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #Health Benefits of Drinking Enough Water Every Day  </div>
+                            </div>
+                        </a>
+
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-1.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-8 p-3 flex justify-between text-white uk-transition-slide-bottom">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Alexa </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        162
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #The Top 8 Online Learning Platforms You Should Try  </div>
+                            </div>
+                        </a>
+                    
+                        <!-- single reels -->
+                        <a href="reels-view.html">
+                            <div class="relative w-full lg:h-[270px] aspect-[2.5/4] overflow-hidden rounded-lg shrink-0 uk-transition-toggle">
+                                
+                                <img class="object-cover w-full h-full" src="{% static "assets/images/reels/reels-2.jpg"%}" alt="">
+                                
+                                <img src="{% static "assets/images/icon-play.svg"%}" alt="" class="w-12 h-12 absolute z-10 top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 uk-transition-fade">
+                                
+                                <div class="w-full bottom-0 absolute left-0 bg-gradient-to-t from-black/60 pt-8 p-3 flex justify-between text-white uk-transition-slide-bottom">
+                                    <div class="flex items-center gap-2">
+                                        <img src="{% static "assets/images/avatars/avatar-2.jpg"%}" alt="" class="w-5 rounded-full">
+                                        <div class="text-sm"> Alexa </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <ion-icon class="text-lg" name="heart-outline"></ion-icon>
+                                        162
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="font-normal pt-3 pb-2.5"> 
+                                <div class="line-clamp-2 text-sm"> #The Top 10 Online Shopping Sites You Should Know About </div>
+                            </div>
+                        </a>
+                         
+                        
+                        <!-- placeholders -->
+                        <div class="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                        <div class="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                        <div class="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+                        <div class="w-full lg:h-60 h-full aspect-[3/3] bg-slate-200/60 rounded-lg dark:bg-dark2 animate-pulse"></div>
+    
+                    </div>
+    
+                    <!-- load more -->
+                    <div class="flex justify-center my-6">
+                        <button type="button" class="bg-white py-2 px-5 rounded-full shadow-md font-semibold text-sm dark:bg-dark2">Load more...</button>
+                    </div>
+                     
+                </div>
+
+
+            </div> 
+            
+
+        </main>
+        
+    </div>
+
+  
+
+    {% endblock%}

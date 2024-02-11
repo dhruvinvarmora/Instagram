@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content%}
+<main class="2xl:ml-[--w-side] xl:ml-[--w-side-md] md:ml-[--w-side-small]">
+            <div class="p-2 space-y-2 dark:text-white">
+{% comment %} searchusername={{users.followed.username}} {% endcomment %}
+                {% if  all_follower%}
+
+                    {% for users in all_follower %}
+{% comment %} 
+                   login_username={{user.username}}
+                   serched_username={{users.followed.username}} {% endcomment %}
+
+
+                {% comment %} <a href="{% url "User:Userprofile" users.user.username %}" class="relative flex items-center gap-3 p-2 duration-200 rounded-xl hover:bg-secondery"> {% endcomment %}
+                    {% if users.followed.username == user.username %}
+                    <a href="{% url "User:Userprofile" users.user.username %}"class="relative flex items-center gap-3 p-2 duration-200 rounded-xl hover:bg-secondery">
+                        {% else %}
+                    <a href="{% url "User:profile" users.user.username %}" class="relative flex items-center gap-3 p-2 duration-200 rounded-xl hover:bg-secondery">
+                    {% endif %}
+                    
+
+                    <img src= "/media/{{users.user.DP}}" alt="" class="bg-gray-200 rounded-full w-10 h-10">
+                    <div class="fldex-1 min-w-0">
+                        <h4 class="font-medium text-sm text-black dark:text-white">{{users.user.username}} </h4>
+                        <div class="text-xs text-gray-500 font-normal mt-0.5 dark:text-white-80"> Suggested For You </div>
+                    </div> 
+                </a>
+                    {% endfor %}
+                {%else%}
+                <div class="flex items-center justify-between py-2.5 px-3 font-semibold">
+                    
+                </div>
+                {% endif %}
+{% comment %} #-----------------------------------------------------Show-Following--------------------------------------------------------------------------------------------------------# {% endcomment %}
+                {% if all_following%}
+                {% for users in all_following %}
+
+                {% if users.followed.username != user.username %}
+                <a href="{% url "User:Userprofile" users.followed.username %}" class="relative flex items-center gap-3 p-2 duration-200 rounded-xl hover:bg-secondery">
+                {%else%}
+                <a href="{% url "User:profile" users.followed.username %}" class="relative flex items-center gap-3 p-2 duration-200 rounded-xl hover:bg-secondery">
+                {% endif %}
+                    <img src= "/media/{{users.followed.DP}}" alt="" class="bg-gray-200 rounded-full w-10 h-10">
+                    <div class="fldex-1 min-w-0">
+                        <h4 class="font-medium text-sm text-black dark:text-white">{{users.followed.username}} </h4>
+                        <div class="text-xs text-gray-500 font-normal mt-0.5 dark:text-white-80"> Suggested For You </div>
+                    </div> 
+                </a>
+                {% endfor %}
+                {%else%}
+                {% endif %}
+            </div>
+{% endblock%}

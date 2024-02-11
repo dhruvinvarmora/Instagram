@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content%}
+
+        <!-- main contents -->
+        <main class="2xl:ml-[--w-side] xl:ml-[--w-side-md] md:ml-[--w-side-small]">
+
+            <div class="main__inner">
+
+                <div class="mt-10">
+
+                    <div  uk-sticky="cls-active: bg-slate-100/60 z-30 backdrop-blur-lg px-4 dark:bg-slate-800/60; start: 500; animation: uk-animation-slide-top">
+                        
+                        <nav class="text-sm text-center text-gray-500 capitalize font-semibold dark:text-white">
+                            <ul     class="flex gap-2 justify-center border-t dark:border-slate-700"
+                                    uk-switcher="connect: #story_tab ; animation: uk-animation-fade, uk-animation-slide-left-medium">
+                            
+                                <li> <a href="#" class="flex items-center p-4 py-2.5 -mb-px border-t-2 border-transparent aria-expanded:text-black aria-expanded:border-black aria-expanded:dark:text-white aria-expanded:dark:border-white"> <ion-icon class="mr-2 text-2xl" name="camera-outline"></ion-icon> Posts  </a> </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+
+                    <div id="story_tab" class="uk-switcher">
+                        <!-- Post list -->
+                        <div>
+                            <div class="mt-8">
+                                <!-- post heading -->
+                                <div class="flex items-center justify-between py-3">
+                                    <h1 class="text-xl font-bold text-black dark:text-white">Posts</h1>
+                                </div>
+                                
+                                <!-- Post list -->  
+                               <div class="flex gap-3 text-sm font-medium">
+                                    <img src="/media/{{post.user.DP}}" alt="" class="w-9 h-9 rounded-full">
+                                        <div class="flex-1">
+                                            <h4 class="text-black font-medium dark:text-white">{{post.user.username}}</h4>
+                                                <div class="text-gray-500 text-xs dark:text-white/80">{{post.created_on}}</div>
+                                        </div>
+                                       
+                                        <div class="-m-1">
+                                            <button type="button" class="button__ico w-8 h-8"> <ion-icon class="text-xl" name="ellipsis-horizontal"></ion-icon> </button>
+                                            <div  class="w-[253px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true"> 
+                                                <nav> 
+                                                    <!-- <a href="#"> <ion-icon class="text-xl shrink-0" name="bookmark-outline"></ion-icon>  Add to favorites </a>   -->
+                                                    <!-- <a href="#"> <ion-icon class="text-xl shrink-0" name="notifications-off-outline"></ion-icon> Mute Notification </a>   -->
+                                                    <!-- <a href="#"> <ion-icon class="text-xl shrink-0" name="flag-outline"></ion-icon>  Report this post </a>   -->
+                                                    <!-- <a href="#"> <ion-icon class="text-xl shrink-0" name="share-outline"></ion-icon>  Share your profile </a>   -->
+                                                    {% if user.username == post.user.username %}
+                                                    <form method="post" action="{% url "post:postdelete" post.id  %}" class="mt-3">
+                                                        {% csrf_token %}
+                                                        <input type="submit" class="btn btn-primary text-red-400  hover:!bg-red-50 dark:hover:!bg-red-500/50" value="Delete" style="margin-left: 30px;"> 
+                                                        {% comment %} <a href="#" class="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50"> <ion-icon class="text-xl shrink-0" name="stop-circle-outline"></ion-icon>  Delete </a>   {% endcomment %}
+                                                </form>
+                                                {% endif %}
+                                            </nav>
+                                                    <hr>
+                                                    {% comment %} <a href="#" class="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50"> <ion-icon class="text-xl shrink-0" name="stop-circle-outline"></ion-icon>  Delete </a>   {% endcomment %}
+                                                </nav>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="grid lg:grid-cols-2 sm:grid-cols-2 grid-cols-2 gap-3 mt-6"  uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 100">
+                                    {% for userpost in posts %}
+                                        <div class="lg:hover:scale-105 hover:shadow-lg hover:z-10 duration-500 delay-100"> 
+                                            <div class="">
+                                                {% comment %} post_id=={{userpost.post.id}}
+                                                upload_time={{userpost.post.created_on}} {% endcomment %}
+                                                <div>
+                                                    <img src="/media/{{userpost.post_img}}" alt="" class="rounded" style="border-radius:10px; height:250px; width:400px;" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        
+                                </div>
+                                <p class="font-normal text-sm leading-6 mt-4"><b>Captions:</b> {{posts.last.post.captions}} </p>
+                            </div>
+                            <div class="mt-8">
+                                <!-- post heading -->
+                                <div class="flex items-center justify-between py-3">
+                                    
+                                    <div class="flex gap-3 text-sm font-medium">
+                                        <button type="button" class="button__ico text-red-500 bg-red-100 dark:bg-slate-700"> <ion-icon class="text-lg" name="heart"></ion-icon> </button>
+                                        <a href="#">{{posts.last.post.like.count}}</a>
+                                    </div>
+                                    <div class="flex gap-3 text-sm font-medium">
+                                        <button type="button" class="button__ico bg-slate-100 dark:bg-slate-700"> <ion-icon class="text-lg" name="chatbubble-ellipses"></ion-icon> </button>
+                                        <span>{{comment.comment_count}}</span>
+                                    </div>
+                                     <!-- comments -->
+                                    <button type="button" class="button__ico ml-auto"> <ion-icon class="text-xl" name="share-outline"></ion-icon> </button>
+                                        <button type="button" class="button__ico"> <ion-icon class="text-xl" name="bookmark-outline"></ion-icon> </button>
+                                    </div>
+                                </div>
+
+                                <!-- add comment -->
+                                <div class="sm:px-4 sm:py-3 p-2.5 border-t border-gray-100 flex items-center gap-1 dark:border-slate-700/40">
+                                    
+                                    <img src="/media/{{user.DP}}" alt="" class="w-6 h-6 rounded-full">
+                                    
+                                    <form method="GET" action="{% url "post:createcomment" %}" class="form-inline">
+                                        <div class="comment-form">
+                                        {% csrf_token %}
+                                        <input type="text" placeholder="Add Comment...." value="" class="form-control" name="text">
+                                        <input type="hidden" value="{{post.id}}" class="form-control" name="post_id">
+                                        <button type="submit" class="ml-2 btn p-0" id="submit"><i class="fa fa-search"></i></button>
+                                      </form>
+                                    </div>
+
+                                    <div class="flex-1 relative overflow-hidden h-10">
+                                       
+    
+                                        <div class="!top-2 pr-2" uk-drop="pos: bottom-right; mode: click">
+                                            <div class="flex items-center gap-2" uk-scrollspy="target: > svg; cls: uk-animation-slide-right-small; delay: 100 ;repeat: true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 fill-sky-600">
+                                                    <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 fill-pink-600">
+                                                    <path d="M3.25 4A2.25 2.25 0 001 6.25v7.5A2.25 2.25 0 003.25 16h7.5A2.25 2.25 0 0013 13.75v-7.5A2.25 2.25 0 0010.75 4h-7.5zM19 4.75a.75.75 0 00-1.28-.53l-3 3a.75.75 0 00-.22.53v4.5c0 .199.079.39.22.53l3 3a.75.75 0 001.28-.53V4.75z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="text-sm rounded-full py-1.5 px-3.5 bg-secondery"> Replay</button>
+                                </div> 
+                                <div class="sm:p-4 p-2.5 border-t border-gray-100 font-normal space-y-3 relative dark:border-slate-700/40"> 
+                                    {% for allcomment in allcomment %}    
+                                    <div class="flex items-start gap-3 relative">
+                                        <a href="profile.html"> <img src="/media/{{allcomment.user.DP}}" alt="" class="w-6 h-6 mt-1 rounded-full"> </a>
+                                        <div class="flex-1">
+                                            <a href="profile.html" class="text-black font-medium inline-block dark:text-white"> {{allcomment.user.username}} </a>
+                                            <p class="mt-0.5">{{allcomment.text}}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %} 
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+{% endblock%}
+{% block script %}
+<script>
+$(document).ready(function(){
+    $(".comment-form").on('submit',function(event){
+        event.preventDefault();
+        var form_data=$(this).serialize();
+        $.ajax({
+             url:"post:comment"
+        })
+    })
+
+});
+</script>
+{% endblock script %}
