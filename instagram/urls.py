@@ -22,6 +22,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls.static import static
 
+from User import consumers
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -49,6 +51,10 @@ urlpatterns = [
     #-------------------------------Post--------------------------------#
     
     
+]
+websocket_urlpatterns = [
+    path('ws/chat/<str:room_name>/', consumers.ChatConsumer.as_asgi()),
+    # Other WebSocket URLs if any
 ]
 
 if settings.DEBUG:

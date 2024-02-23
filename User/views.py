@@ -35,6 +35,26 @@ class Home(TemplateView):
 class Messages(TemplateView):
     template_name = 'messages.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        All_following_user = Follow.objects.filter(user=user)
+        first_All_following_user = Follow.objects.filter(user=user).first()
+        print('first_All_following_user: ', first_All_following_user)
+        posts = Post.objects.all()
+        context['All_following_user'] = All_following_user
+        context['first_All_following_user'] = first_All_following_user.user.username
+
+        context['posts'] = posts
+        context['story_form'] = StoryForm()
+        notificion=Notificitons.objects.all().order_by("-id")
+        context["notificions"]=notificion
+        user_stories_dict = {}
+        context['user_stories_dict'] = user_stories_dict
+        return context
+
+
+
 class Reels(TemplateView):
     template_name = 'Explore/reels.html'
 

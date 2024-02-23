@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'User',
     'django.contrib.sites',
     'allauth',
@@ -56,7 +55,10 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'post',
     "Explore",
-    "fcm_django"
+    "fcm_django",
+    'daphne',  
+    'django.contrib.staticfiles',
+    'channels',
     
 ]
 
@@ -105,7 +107,7 @@ AUTHENTICATION_BACKENDS = [
 
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-
+ASGI_APPLICATION = 'instagram.asgi.application'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -160,6 +162,11 @@ DATABASES = {
     }
 }
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',  # Or any other channel layer backend
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
