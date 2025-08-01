@@ -31,6 +31,7 @@ class Follow(models.Model):
     user=models.ForeignKey(MyUser,related_name="follow_follower",on_delete=models.CASCADE)
     followed=models.ForeignKey(MyUser,related_name="follow_followed",on_delete=models.CASCADE)
     is_follow=models.BooleanField(default=True)
+    follow_each_other=models.BooleanField(default=False)
     followed_on=models.DateTimeField(auto_now_add=True)
     updated_on=models.DateTimeField(auto_now=True)
 
@@ -61,3 +62,17 @@ class Notification(models.Model):
     notification_title = models.CharField(null=True, blank=True, max_length=255)
     notification_body = models.CharField(null=True, blank=True, max_length=255)
     is_read = models.BooleanField(default=False)
+class Room(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
+class Message(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    content = models.TextField()
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+    sender = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='sent_messages',null=True,blank=True)
+    receiver = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='received_messages',null=True,blank=True)
+    content = models.TextField()
+
+    def __str__(self):
+        return "Message is :- "+ self.content

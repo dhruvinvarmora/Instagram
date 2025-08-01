@@ -1,0 +1,15 @@
+{% if all_profile %}
+    {% for users in all_profile %}
+    <a href="{% url "User:Userprofile" users.username %}" class="relative flex items-center gap-3 p-2 duration-200 rounded-xl hover:bg-secondery">
+        <img src="/media/{{ users.DP }}" alt="{{ users.username }}" class="bg-gray-200 rounded-full w-10 h-10">
+        <div class="flex-1 min-w-0">
+            <h4 class="font-medium text-sm text-black dark:text-white">{{ users.username }}</h4>
+            <div class="text-xs text-gray-500 font-normal mt-0.5 dark:text-white-80">Suggested For You</div>
+        </div>
+    </a>
+    {% endfor %}
+{% else %}
+    <div class="flex items-center justify-between py-2.5 px-3 font-semibold">
+        <h4>No data found</h4>
+    </div>
+{% endif %}

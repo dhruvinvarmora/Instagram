@@ -22,6 +22,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls.static import static
 
+from User import consumers
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,6 +40,8 @@ urlpatterns = [
     
     path('', login_required(views.Home.as_view()), name='home'),
     path('messages', login_required(views.Messages.as_view()), name='messages'),
+    path('room', login_required(views.RoomView.as_view()), name='room'),
+    path("chat_functionality/<str:slug>", login_required(views.Chat.as_view()), name="chat_functionality"),
     path('reels', login_required(views.Reels.as_view()), name='reels'),
     path('usersetting', login_required(views.UserSetting.as_view()), name='usersetting'),
     path("firebase-messaging-sw.js", views.ShowFireBaseJS.as_view(), name="show_firebase_js"),
@@ -49,6 +53,10 @@ urlpatterns = [
     #-------------------------------Post--------------------------------#
     
     
+]
+websocket_urlpatterns = [
+    path('ws/chat/<str:room_name>/', consumers.ChatConsumer.as_asgi()),
+    # Other WebSocket URLs if any
 ]
 
 if settings.DEBUG:

@@ -24,28 +24,32 @@ def activity_log_create_update(sender, instance, **kwargs):
 
 @receiver(pre_save, sender=Follow)
 def activity_log_create_update(sender, instance, **kwargs):
-    new_data = (instance.__dict__).copy()
+    new_data = instance.__dict__.copy()
 
     if instance.pk:
         old_data = Follow.objects.get(pk=instance.pk).__dict__.copy()
         
         user = get_current_user()
 
+        # Ensure sender is set
+        sender = get_current_user()
         Notificitons.objects.create(
+            sender=sender,
             receiver=user,
         )
     else:
-        user = new_data["user_id"]
-        send_user = new_data["followed_id"]
-        receiver = MyUser.objects.filter(pk=send_user).first()
+        user_id = new_data["user_id"]
+        followed_id = new_data["followed_id"]
+        receiver = MyUser.objects.filter(pk=followed_id).first()
 
         sender = get_current_user()
         
         Notificitons.objects.create(
-            receiver=receiver,
             sender=sender,
+            receiver=receiver,
             type=Notificitons.FOLLOW
         )
+
 
 @receiver(post_liked)
 def handle_post_liked(sender, **kwargs):

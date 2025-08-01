@@ -4,18 +4,33 @@ from django import forms
 from post.models import Story
 from .models import *
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
-
-class UserRegister(UserCreationForm):
-    username=forms.CharField(max_length=50,required=True,widget=forms.TextInput)
-    email=forms.EmailField(max_length=50,required=True,widget=forms.EmailInput)
-    password1=forms.CharField(max_length=50,required=True ,widget=forms.PasswordInput,label='Password')
-    password2=forms.CharField(max_length=50,required=True,widget=forms.PasswordInput,label='Confirm Password')
+from django.contrib.auth.forms import AuthenticationForm
+from allauth.account.forms import SignupForm
 
 
-    class Meta:
-        model=MyUser
-        fields=("username","email","password1",'password2')
-
+class Userlogin(AuthenticationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Username',
+            'class': 'form-control'
+        })
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Password',
+            'class': 'form-control'
+        })
+    )
+class CustomSignupForm(SignupForm):
+    username = forms.CharField(max_length=50, required=True, widget=forms.TextInput())
+    email = forms.EmailField(max_length=50, required=True, widget=forms.EmailInput())
+    
+    def save(self, request):
+        user = super().save(request)
+        user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        user.save()
+        return user
 
 class Userlogin(forms.ModelForm):
     username=forms.CharField(max_length=50,required=True,widget=forms.TextInput)

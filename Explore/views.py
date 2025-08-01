@@ -17,6 +17,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from crispy_forms.utils import render_crispy_form
 from allauth.account.views import SignupView,LoginView,LogoutView,PasswordChangeView
 from django.contrib.auth import logout
+from django.template.loader import render_to_string
 
 
 
@@ -45,3 +46,14 @@ class SerachExplorepostView(ListView):
         context={"all_post":post_list}
         return render(request,self.template_name,context)
 
+
+class SearchProfile(View):
+    def get(self, request, *args, **kwargs):
+        search_query = request.GET.get("Search", "")
+        profiles = MyUser.objects.filter(username__icontains=search_query).exclude(username=request.user.username)
+        
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            html = render_to_string("Explore/profile_list_partial.html", {"all_profile": profiles})
+            return JsonResponse({"html": html})
+
+        return render(request, "Explore/Search.html", {"all_profile": profiles})
