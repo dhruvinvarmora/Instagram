@@ -1,62 +1,50 @@
 {% extends 'base.html' %}
-{% load static%}
-{% block content%}
+{% load static %}
+{% block content %}
 
 <main class="2xl:ml-[--w-side] xl:ml-[--w-side-md] md:ml-[--w-side-small]">
-<div> 
-    <div >
+    <div>
+        <div>
+            <!-- Header -->
+            <div class="px-5 py-4 space-y-8 border-b border-gray-100 dark:border-slate-700">
+                <h3 class="md:text-xl text-lg font-medium mt-3 text-black dark:text-white">Search</h3>
+                <div class="relative -mx-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 absolute left-3 bottom-3/2 translate-y-1/2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
 
-        <!-- header -->
-        
-            {% csrf_token %}
-        <div class="px-5 py-4 space-y-8 border-b border-gray-100 dark:border-slate-700">
-            <h3 class="md:text-xl text-lg font-medium mt-3 text-black dark:text-white">Search</h3>
-            <div class="relative -mx-1">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 absolute left-3 bottom-3/2 translate-y-1/2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
-                {% comment %} {{form.username}} {% endcomment %}
-                <form method="GET" action="{% url "Explore:searchProfile"%}">
-                <input type="text" autocapitalize="none" placeholder="Search" value="" class="bg-transparen w-full !pl-10 !py-2 !rounded-lg" name="Search">
-                <button type="submit" ><i class="fa fa-search "></i></button>
-            </form>
+                    <input id="searchInput" type="text" name="Search" placeholder="Search" class="bg-transparent w-full !pl-10 !py-2 !rounded-lg" autocomplete="off">
+                </div>
+            </div>
+
+            <!-- Results Container -->
+            <div id="resultsContainer" class="p-2 space-y-2 dark:text-white">
+                {% include "Explore/profile_list_partial.html" %}
             </div>
         </div>
-   
-
-    <form method="GET" action="{% url "Explore:searchProfile"%}" class="form-inline">
-        {% csrf_token %}
-        <input type="text" autocapitalize="none" placeholder="Search" value="" class="form-control" name="s">
-        <button type="submit" class="ml-2 btn p-0">
-          <i class="fa fa-search"></i>
-        </button>
-      </form>
-        <!-- contents list -->
-        <div class="p-2 space-y-2 dark:text-white">
-
-            <div class="flex items-center justify-between py-2.5 px-3 font-semibold">
-                <h4>Recent</h4>
-                <button type="button" class="text-blue-500 text-sm">Clear all</button>
-            </div>
-            {%if all_profile%}
-            {% for users in all_profile%}
-            <a href="{% url "User:Userprofile" users.username %}" class="relative flex items-center gap-3 p-2 duration-200 rounded-xl hover:bg-secondery">
-                <img src= "/media/{{users.DP}}" alt="" class="bg-gray-200 rounded-full w-10 h-10">
-                <div class="fldex-1 min-w-0">
-                    <h4 class="font-medium text-sm text-black dark:text-white">{{users.username}} </h4>
-                    <div class="text-xs text-gray-500 font-normal mt-0.5 dark:text-white-80"> Suggested For You </div>
-                </div> 
-            </a>
-            {% endfor %}
-            {% else%}
-            <div class="flex items-center justify-between py-2.5 px-3 font-semibold">
-                <h4>No data Found</h4>
-            </div>
-            {% endif %}
-        </div>
-
     </div>
-</div> 
-<div class="container">
+</main>
 
-{% endblock%}
+<!-- JavaScript for live search -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('searchInput');
+    const results = document.getElementById('resultsContainer');
+
+    input.addEventListener('input', function () {
+        const query = input.value;
+
+        fetch(`{% url 'Explore:searchProfile' %}?Search=${encodeURIComponent(query)}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            results.innerHTML = data.html;
+        });
+    });
+});
+</script>
+
+{% endblock %}

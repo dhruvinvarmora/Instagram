@@ -38,35 +38,133 @@ class Messages(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        All_following_user = Follow.objects.filter(user=user)
-        first_All_following_user = Follow.objects.filter(user=user).first()
-        print('first_All_following_user: ', first_All_following_user)
+        All_following_user = Follow.objects.filter(followed=user,follow_each_other=True)
         posts = Post.objects.all()
-        context['All_following_user'] = All_following_user
-        context['first_All_following_user'] = first_All_following_user.user.username
+        context['-------------All_following_user-------------'] = All_following_user
+        following_users= Follow.objects.filter(user=user,follow_each_other=True)
+        context["All_following_user"] = following_users
+        print('--->>>>>>following_users: ', following_users)
+        # for following_user in following_users:
+        #     room_name1=f"chat_{following_user.user.username}_{following_user.followed.username}"
+        #     print('room_name1: ', room_name1)
+        #     room_name2=f"chat_{following_user.followed.username}_{following_user.user.username}"
+        #     print('room_name2: ', room_name2)
+        #     rooms = Room.objects.filter(Q(name=room_name1) | Q(name=room_name2))
+        #     for room in rooms:
+        #         if room.name == room_name1:
+        #             print("------in if--------")
+        #             print('room.name: ', room.name)
+        #             user1=room.nameslplit(chat_)
+        #         else:
+        #             print("-in else----")
+        #             print('room.name: ', room.name)
+        #     print('rooms: ', rooms)
+        following_user_dict = {}
+        rooms = []  # ✅ initialize rooms to avoid UnboundLocalError
 
+        for following_user in following_users:
+            room_name1 = f"chat_{following_user.user.username}_{following_user.followed.username}"
+            room_name2 = f"chat_{following_user.followed.username}_{following_user.user.username}"
+            
+            matched_rooms = Room.objects.filter(Q(name=room_name1) | Q(name=room_name2))
+            for room in matched_rooms:
+                if room.name == room_name1:
+                    user1_username, user2_username = following_user.user.username, following_user.followed.username
+                else:
+                    user1_username, user2_username = following_user.followed.username, following_user.user.username
+                
+                user1_obj = MyUser.objects.get(username=user1_username)
+                user2_obj = MyUser.objects.get(username=user2_username)
+
+                if self.request.user.username == user1_username:
+                    following_user_dict[room] = user2_obj
+                else:
+                    following_user_dict[room] = user1_obj
+                
+                rooms.append(room)  
+        print('following_user_dict: ', following_user_dict)
+        context["All_following_user"] = following_users
+        context["following_user_dict"] = following_user_dict
+        context['rooms'] =rooms
         context['posts'] = posts
         context['story_form'] = StoryForm()
+        messages=Message.objects.all()
+        print('----------------messages: ', messages)
+        context['messages'] = messages
         notificion=Notificitons.objects.all().order_by("-id")
         context["notificions"]=notificion
         user_stories_dict = {}
         context['user_stories_dict'] = user_stories_dict
         return context
 
+# def rooms(request):
+#     rooms=Room.objects.all()
+#     return render(request, "rooms.html",{"rooms":rooms})
 
+class Chat(TemplateView):
+    # template_name = 'room.html'
+    template_name = 'chat_room.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs["slug"]
+        print('slug: ', slug)
+        
+        # Split the slug to get the usernames
+        user1_username, user2_username = slug.split('_')
+        
+        # Retrieve the user objects from the database
+        user1 = MyUser.objects.get(username=user1_username)
+        user2 = MyUser.objects.get(username=user2_username)
+        print('user1: ', user1)
+        print('user2: ', user2)
+        
+        # Check which user is the logged-in user
+        if self.request.user != user1:
+            context["user"] = user1
+        else:
+            context["user"] = user2
+        room = Room.objects.filter(slug=slug).first()
+        print('room:-------- ', room)
+        if room:
+            context['room_name'] = room.name
+            Message.objects.filter(room=room)
+            print('Message.objects.filter(room=room): ', Message.objects.filter(room=room))
+            context['messages'] = Message.objects.filter(room=room).order_by('-created_on')
+        else:
+            print("-in else----")
+            # Handle the case where the room with the given slug doesn't exist
+            # You can redirect to an error page or do something else
+            pass
+        return context
+class RoomView(TemplateView):
+    # template_name = 'messages.html'
+    template_name = 'rooms.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user=self.request.user
+        following_users= Follow.objects.filter(followed=user)
+        print('following_users: ', following_users)
+        context["All_following_user"] = following_users
+        rooms =Room.objects.filter(slug__in=[following_user.user.username for following_user in following_users])
+        print('rooms: ', rooms)
+        context['rooms'] =rooms
+
+        return context
+    
 class Reels(TemplateView):
     template_name = 'Explore/reels.html'
 
 #-----------------------------Authentication----------------------------------#
 class Register(SignupView):
-    form_class = UserRegister
+    form_class = CustomSignupForm
     template_name = "Authentication/register.html"
     success_url = reverse_lazy("userlogin")
 
 class UserLogin(LoginView):
-    authentication_form = Userlogin
     template_name = 'Authentication/login.html'
+    authentication_form = Userlogin
+    redirect_authenticated_user = True  
 
 class Logout(LogoutView):
     def get(self,request):
@@ -269,35 +367,79 @@ class SearchUserProfileView(DetailView):
 #                     is_follow_this_user=True
 #                     context={"user":user,"is_follow_this_user":is_follow_this_user}
 #             return render(request,self.template_anon_name,context)
-class Followview(View):
-    template_name="UserDetail.html"
-    def post(self,request,*args,**kwargs):
-        followed_user_id=request.POST.get("follow_user_id")
-        followed_user_obj=MyUser.objects.get(pk=followed_user_id)
-
-        try:
-            Follow.objects.get(user=request.user,followed=followed_user_obj)
-        except Exception as e:
-            Follow.objects.create(followed=followed_user_obj)
-        token = FCMDevice.objects.filter(user_id=self.request.user.id).first()
-
-        # fcm_message = {
-        #         "message": {
-        #             "token": token,
-        #             "notification": {"title": message_title, "body": message_body},
-        #             "webpush": {"fcm_options": {"link": settings.APP_URL}},
-        #         }
-        #     }
-        # send_notification(
-        #     user=self.request.user,
-        #     token=token.device_id if token else " ",
-        #     message_title="Task",
-        #     message_body=f" Task Created Successfully",
-        # )
+# class Followview(View):
+#     template_name="UserDetail.html"
+#     def post(self,request,*args,**kwargs):
+#         followed_user_id=request.POST.get("follow_user_id")
+#         followed_user_obj=MyUser.objects.get(pk=followed_user_id)
+#         print('followed_user_obj: ', followed_user_obj)
         
-        user_ids = [followed_user_obj.id]
-        data = {"title": "Title", "message": f"{self.request.user} Started Following You"}
-        send_firebase_push_notification(user_ids, data)
+#         room_name=f'chat_{followed_user_obj}_{self.request.user.username}'
+#         slug=followed_user_obj
+        
+#         try:
+#             Follow.objects.get(user=request.user,followed=followed_user_obj)
+#         except Exception as e:
+#             Follow.objects.create(followed=followed_user_obj)
+        
+
+
+#         room_name = f'chat_{followed_user_obj}_{self.request.user.username}'
+#         slug = f'{followed_user_obj}_{self.request.user.username}'
+
+#         # Check if both users follow each other
+#         if Follow.objects.filter(user=request.user, followed=followed_user_obj).exists() and \
+#         Follow.objects.filter(user=followed_user_obj, followed=request.user).exists():
+#             follow1 = Follow.objects.get(user=request.user, followed=followed_user_obj)
+#             follow2 = Follow.objects.get(user=followed_user_obj, followed=request.user)
+            
+#             follow1.follow_each_other = True
+#             follow2.follow_each_other = True
+            
+#             follow1.save()
+#             follow2.save()
+            
+#             room = Room.objects.create(slug=slug, name=room_name)
+#             print('room: ', room)
+
+#         try:
+#             token = FCMDevice.objects.filter(user_id=self.request.user.id).first()
+#         except Exception as e:
+#             print("e",e)
+
+#         # fcm_message = {
+#         #         "message": {
+#         #             "token": token,
+#         #             "notification": {"title": message_title, "body": message_body},
+#         #             "webpush": {"fcm_options": {"link": settings.APP_URL}},
+#         #         }
+#         #     }
+#         # send_notification(
+#         #     user=self.request.user,
+#         #     token=token.device_id if token else " ",
+#         #     message_title="Task",
+#         #     message_body=f" Task Created Successfully",
+#         # )
+        
+#         user_ids = [followed_user_obj.id]
+#         data = {"title": "Title", "message": f"{self.request.user} Started Following You"}
+#         send_firebase_push_notification(user_ids, data)
+
+#         return redirect(request.META.get("HTTP_REFERER"))
+
+class Followview(View):
+    def post(self, request, *args, **kwargs):
+        followed_user_id = request.POST.get("follow_user_id")
+        followed_user_obj = MyUser.objects.get(pk=followed_user_id)
+
+        # Prevent duplicate
+        _, created = Follow.objects.get_or_create(user=request.user, followed=followed_user_obj)
+
+        if created:
+            # Optional: send notification
+            user_ids = [followed_user_obj.id]
+            data = {"title": "New Follower", "message": f"{request.user.username} started following you."}
+            send_firebase_push_notification(user_ids, data)
 
         return redirect(request.META.get("HTTP_REFERER"))
 

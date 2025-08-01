@@ -40,6 +40,8 @@ urlpatterns = [
     
     path('', login_required(views.Home.as_view()), name='home'),
     path('messages', login_required(views.Messages.as_view()), name='messages'),
+    path('room', login_required(views.RoomView.as_view()), name='room'),
+    path("chat_functionality/<str:slug>", login_required(views.Chat.as_view()), name="chat_functionality"),
     path('reels', login_required(views.Reels.as_view()), name='reels'),
     path('usersetting', login_required(views.UserSetting.as_view()), name='usersetting'),
     path("firebase-messaging-sw.js", views.ShowFireBaseJS.as_view(), name="show_firebase_js"),

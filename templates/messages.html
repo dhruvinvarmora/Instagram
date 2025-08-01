@@ -41,22 +41,48 @@
                             </div> 
                         </div> 
                         <!-- users list -->
-                        <div class="space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)]">
+                        <!-- <div class="space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)]">
                             {% for user in All_following_user %}
-                            <button type="button" onclick="showChat('{{ user.followed.username }}', '{{ user.followed.DP }}'); console.log('Clicked!');" class="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-secondery">
+                                user------{{user.followed.username}}
+                                {% for room  in rooms  %}
+                                room-----{{room.slug}}
+                                    {% if room.slug == user.followed.username %}
+                                        {{room.slug}}=={{user.followed.username}}
+                                    
+                                        <a  href="{% url 'chat_functionality' room.slug %}" type="button" onclick="showChat('{{ user.followed.username }}', '{{ user.followed.DP }}'); console.log('Clicked!');" class="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-secondery">
+                                            <div class="relative w-14 h-14 shrink-0">
+                                                <img src="/media/{{user.followed.DP}}" alt="" class="object-cover w-full h-full rounded-full">
+                                                <div class="w-4 h-4 absolute bottom-0 right-0 bg-green-500 rounded-full border border-white dark:border-slate-800"></div>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <div class="flex items-center gap-2 mb-1.5">
+                                                    <div class="mr-auto text-sm text-black dark:text-white font-medium">{{user.followed.username}}</div>
+                                                    <div class="text-xs font-light text-gray-500 dark:text-white/70">09:40AM</div>
+                                                </div>
+                                                <div class="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap">Love your photos 😍</div>
+                                            </div>
+                                        </a>
+                                
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div> -->
+                        <div class="space-y-2 p-2 overflow-y-auto h-[calc(100vh-127px)]">
+                            {% for room, user in following_user_dict.items %}
+                            <a href="{% url 'chat_functionality' room.slug %}" type="button" onclick="showChat('{{ user.username }}', '{{ user.DP }}'); console.log('Clicked!');" class="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-secondery">
                                 <div class="relative w-14 h-14 shrink-0">
-                                    <img src="/media/{{user.followed.DP}}" alt="" class="object-cover w-full h-full rounded-full">
+                                    <img src="/media/{{ user.DP }}" alt="" class="object-cover w-full h-full rounded-full">
                                     <div class="w-4 h-4 absolute bottom-0 right-0 bg-green-500 rounded-full border border-white dark:border-slate-800"></div>
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-center gap-2 mb-1.5">
-                                        <div class="mr-auto text-sm text-black dark:text-white font-medium">{{user.followed.username}}</div>
+                                        <div class="mr-auto text-sm text-black dark:text-white font-medium">{{ user.username }}</div>
                                         <div class="text-xs font-light text-gray-500 dark:text-white/70">09:40AM</div>
                                     </div>
                                     <div class="font-medium overflow-hidden text-ellipsis text-sm whitespace-nowrap">Love your photos 😍</div>
                                 </div>
-                            </button>
-                            {% endfor %}
+                            </a>
+                        {% endfor %}
                         </div>
                     </div>
                     <!-- overly -->
@@ -93,40 +119,7 @@
                         </div>
                     </div>
                     <!-- chats bubble -->
-                    <div id="chat-content" class="w-full p-5 py-10 overflow-y-auto md:h-[calc(100vh-137px)] h-[calc(100vh-250px)]"></div> 
-                    <!-- sending message area -->
-                    <div class="flex items-center md:gap-4 gap-2 md:p-3 p-2 overflow-hidden">
-                        <div id="message__wrap" class="flex items-center gap-2 h-full dark:text-white -mt-1.5">
-                            <div class="jumbotron" id="chatbox" style="padding: 4px 2px;"></div>
-                            <!-- Add the message form -->
-                            <form>
-                                <div class="form-group">
-                                  {% if messages %}
-                                  <div class="jumbotron" id="chatbox" style="padding: 4px 2px;max-height: 300px;  /* Adjust the max-height as needed */overflow-y: scroll;">
-                                      {% for message in messages %}
-                                        <div class="chat-message {% if message.user == request.user %}text-right{% else %}text-left{% endif %}">
-                                          <b>{{ message.user.username }}</b> : {{ message.content }}<br>
-                                        </div>
-                                        {% endfor %}
-                                  </div>
-                                  {% else %}
-                                  <div class="jumbotron" id="chatbox" style="padding: 4px 2px;"></div>
-                                  <b>No Messages in this Room.</b>
-                                    {% endif %}
-                                </div>
-                                <br/>
-                                <div class="form-group" style="width: 100%;">
-                                    <input class="form-control" placeholder="Enter text here" id="my_input" type="text" required>
-                                    <button class="btn btn-primary btn-lg btn-block" id="submit_button" ><ion-icon class="text-xl flex" name="send-outline"></ion-icon></button>
-                                </div>
-                                <br/>
-                                
-                            </form>
-                        </div>
-                        <button type="button" class="flex h-full dark:text-white">
-                            <ion-icon class="text-3xl flex -mt-3" name="heart-outline"></ion-icon>
-                        </button>
-                    </div>
+                    {% include "chat_messages.html" %}
                     <!-- user profile right info -->
                     <div class="rightt w-full h-full absolute top-0 right-0 z-10 hidden transition-transform">
                         <div class="w-[360px] border-l shadow-lg h-screen bg-white absolute right-0 top-0 uk-animation-slide-right-medium delay-200 z-50 dark:bg-dark2 dark:border-slate-700">
@@ -167,6 +160,7 @@
         </div> 
     </main>
     <script>
+
         // Add this code to your existing JavaScript code
         function showChat(username, DP, status) {
             // Update the content of the chat div with the clicked user's information
@@ -191,75 +185,68 @@
             }
         }
 
-        
-        console.log('roomName: ', roomName)
-       
-    </script>
-    <script>
         const chatbox = document.querySelector("#chatbox");
 
-// Function to scroll to the bottom of the chatbox
-function scrollToBottom() {
-  chatbox.scrollTop = chatbox.scrollHeight;
-}
+        // Function to scroll to the bottom of the chatbox
+        function scrollToBottom() {
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
 
-// Scroll to bottom when the page is loaded
-scrollToBottom();
+        // Scroll to bottom when the page is loaded
+        scrollToBottom();
 
 
-    const roomName = "{{first_All_following_user}}";
-  const chatSocket = new WebSocket("ws://" + window.location.host + "/ws/"+ roomName +"/");
-  // const chatSocket = new WebSocket("ws://127.0.0.1:8000/ws/"+ roomName +"/");
-  // alert(chatSocket);
-  chatSocket.onopen = function (e) {
-    console.log("The connection was setup successfully !");
-  };
-  chatSocket.onclose = function (e) {
-    console.log("Something unexpected happened !");
-  };
+        const roomName = "{{rooms.name}}";
+        const roomslug = "{{rooms.slug}}";
+        console.log('roomName: ', roomName)
+        console.log('roomslug: ', roomslug)
+        const chatSocket = new WebSocket("ws://" + window.location.host + "/ws/"+ roomName +"/");
+        // const chatSocket = new WebSocket("ws://127.0.0.1:8000/ws/"+ roomName +"/");
+        // alert(chatSocket);
+        chatSocket.onopen = function (e) {
+            console.log("The connection was setup successfully !");
+        };
+        chatSocket.onclose = function (e) {
+            console.log("Something unexpected happened !");
+        };
 
-  document.querySelector("#my_input").focus();
-  document.querySelector("#my_input").onkeyup = function (e) {
-    if (e.keyCode == 13) {
-      e.preventDefault();
-      document.querySelector("#submit_button").click();
-    }
-  };
-  document.querySelector("#submit_button").onclick = function (e) {
-    var messageInput = document.querySelector(
-      "#my_input"
-    ).value;
+        document.querySelector("#my_input").focus();
+        document.querySelector("#my_input").onkeyup = function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                document.querySelector("#submit_button").click();
+            }
+        };
+        document.querySelector("#submit_button").onclick = function (e) {
+            e.preventDefault(); // Prevent form submission and page refresh
 
-    if(messageInput.length == 0)
-      {
-          alert("Add some Input First Or Press Send Button!")
-      }
-      else
-      {
-        const room_name = "{{first_All_following_user}}";
-        chatSocket.send(JSON.stringify({ message: messageInput, username : "{{request.user.username}}",room_name:room_name}));
-        
-       
-      }
-    
-  };
+            var messageInput = document.querySelector("#my_input").value;
 
-  chatSocket.onmessage = function (e) {
-    const data = JSON.parse(e.data);
-    var div = document.createElement("div");
-    div.innerHTML = "<b>" + data.username + "</b> : " + data.message;
+            if (messageInput.length == 0) {
+                alert("Add some Input First Or Press Send Button!");
+            } else {
+                const room_name = "{{first_All_following_user}}";
+                chatSocket.send(JSON.stringify({ message: messageInput, username : "{{request.user.username}}",room_name:room_name}));
 
-    // Add class based on user authentication
-    if (data.username === "{{ request.user.username }}") {
-      div.classList.add("chat-message", "text-right");
-    } else {
-      div.classList.add("chat-message", "text-left");
-    }
+                document.querySelector("#my_input").value = ""; // Clear input field after sending message
+            }
+        };
 
-    document.querySelector("#my_input").value = "";
-    document.querySelector("#chatbox").appendChild(div);
-    scrollToBottom();
-  };
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            var div = document.createElement("div");
+            div.innerHTML = "<b>" + data.username + "</b> : " + data.message;
+
+            // Add class based on user authentication
+            if (data.username === "{{ request.user.username }}") {
+                div.classList.add("chat-message", "text-right");
+            } else {
+                div.classList.add("chat-message", "text-left");
+            }
+
+            document.querySelector("#chatbox").appendChild(div);
+            scrollToBottom();
+        };
     </script>
     <!-- Add the JavaScript code for WebSocket connections and message handling here -->
 {% endblock %}
