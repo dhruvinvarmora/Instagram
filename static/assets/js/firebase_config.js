@@ -1,12 +1,12 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyDrH0S8A8u5qn7jBaVH4jHqTFCMoISOncU",
-    authDomain: "instello-5ed0e.firebaseapp.com",
-    projectId: "instello-5ed0e",
-    storageBucket: "instello-5ed0e.appspot.com",
-    messagingSenderId: "1035049981038",
-    appId: "1:1035049981038:web:4f79d51698930937fb027f",
-    measurementId: "G-HMDGZL5ZHZ"
-  };
+        apiKey: "{{ firebase_config.apiKey }}",
+        authDomain: "{{ firebase_config.authDomain }}",
+        projectId: "{{ firebase_config.projectId }}",
+        storageBucket: "{{ firebase_config.storageBucket }}",
+        messagingSenderId: "{{ firebase_config.messagingSenderId }}",
+        appId: "{{ firebase_config.appId }}",
+        measurementId: "{{ firebase_config.measurementId }}"
+    };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
