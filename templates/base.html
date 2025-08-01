@@ -372,15 +372,17 @@
 <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-messaging.js"></script>
 <script>
-    apiKey = "AIzaSyDrH0S8A8u5qn7jBaVH4jHqTFCMoISOncU"
-    authDomain = "instello-5ed0e.firebaseapp.com"
-    projectId = "instello-5ed0e"
-    storageBucket = "instello-5ed0e.appspot.com"
-    messagingSenderId = "1035049981038"
-    appId = "1:1035049981038:web:4f79d51698930937fb027f"
-    measurementId = "G-HMDGZL5ZHZ"
-    user_fcm_token_url = "{% url 'User:user-fcm-token' %}"
-    login_user = '{{request.user.email}}'
+    const firebaseConfig = {
+        apiKey: "{{ firebase_config.apiKey }}",
+        authDomain: "{{ firebase_config.authDomain }}",
+        projectId: "{{ firebase_config.projectId }}",
+        storageBucket: "{{ firebase_config.storageBucket }}",
+        messagingSenderId: "{{ firebase_config.messagingSenderId }}",
+        appId: "{{ firebase_config.appId }}",
+        measurementId: "{{ firebase_config.measurementId }}"
+    };
+    const loginUserId = "{{ user_id }}";
+    const userFcmTokenUrl = "{% url 'user-fcm-token' %}";
 </script>
 <script src="{% static 'assets/js/firebase_config.js' %}"></script>
 {% block script %}
